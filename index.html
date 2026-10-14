@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Victorian Local Government Services</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;family=Playfair+Display:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="styles.css" rel="stylesheet"/>
+<link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/h3-js@4.1.0/dist/h3-js.umd.js">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/vega@5">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/vega-lite@5">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/vega-embed@6">
+</script>
+</head>
+<body>
+<header class="topbar">
+<a class="brand" href="#top">
+<span class="brand-icon">✦</span> VICTORIAN <span>COUNCIL SERVICES</span>
+</a>
+<nav>
+<a href="#explore">Explore data</a>
+<a href="#about">About the data</a>
+</nav>
+<a class="header-pill" href="#explore">View dashboard <span>↗</span>
+</a>
+</header>
+<main id="top">
+<section class="hero">
+<div class="hero-waves">
+</div>
+<div class="hero-copy">
+<span class="eyebrow">
+<span class="eyebrow-dot">
+</span> VICTORIAN LOCAL GOVERNMENT · 2020–2025</span>
+<h1>Better Local Services<br/>for <em>Stronger<br/>Communities.</em>
+</h1>
+<p>Explore how Victorian councils deliver libraries, waste collection, parks and recreation — and how community experiences are changing.</p>
+<div class="search-wrap">
+<span class="search-icon">⌕</span>
+<input aria-label="Search visualisations" id="search" placeholder="Search charts, councils, or service topics…" type="search"/>
+<button aria-label="Search charts" id="searchButton">➜</button>
+</div>
+<p class="hero-micro">Real public datasets · 10 interactive visualisations · Victoria, Australia</p>
+</div>
+<div aria-hidden="true" class="hero-art">
+<div class="art-glow">
+</div>
+<div class="float-tile tile-one">
+<span>♧</span>
+<b>Parks</b>
+</div>
+<div class="float-tile tile-two">
+<span>▤</span>
+<b>Libraries</b>
+</div>
+<div class="float-tile tile-three">
+<span>♻</span>
+<b>Waste</b>
+</div>
+<div class="float-tile tile-four">
+<span>♡</span>
+<b>Community</b>
+</div>
+<svg class="parliament" fill="none" viewbox="0 0 640 330" xmlns="http://www.w3.org/2000/svg">
+<path d="M32 285H606M46 283V241H592V283M80 240V221H553V240M114 220V200H518V220M156 200V177H474V200M212 177V153H421V177M300 153V62M300 62L294 75L300 69L306 75L300 62M300 91L211 153M300 91L421 153M300 91L156 177M300 91L474 177M300 91L114 200M300 91L518 200M300 91L80 221M300 91L553 221" stroke="#975D36" stroke-linejoin="round" stroke-width="2.1">
+</path>
+<path d="M54 253H584M91 231H543M128 209H504M169 187H461" stroke="#B78C67" stroke-width="1.2">
+</path>
+<path d="M69 282V258H85V282M104 282V258H120V282M139 282V258H155V282M174 282V258H190V282M209 282V258H225V282M244 282V258H260V282M279 282V258H295V282M314 282V258H330V282M349 282V258H365V282M384 282V258H400V282M419 282V258H435V282M454 282V258H470V282M489 282V258H505V282M524 282V258H540V282M559 282V258H575V282" stroke="#975D36" stroke-width="1.6">
+</path>
+<path d="M300 75L326 84L300 92V75" fill="#E9A335" stroke="#A9672A" stroke-width="1.5">
+</path>
+<path d="M11 290H626" stroke="#975D36" stroke-width="3">
+</path>
+</svg>
+</div>
+</section>
+<section aria-label="Service categories" class="quick-links">
+<a data-jump="Libraries" href="#explore">
+<span class="service-icon blue">▤</span>
+<b>Public<br/>Libraries</b>
+<span class="arrow">↗</span>
+</a>
+<a data-jump="Waste" href="#explore">
+<span class="service-icon orange">♻</span>
+<b>Waste &amp;<br/>Recycling</b>
+<span class="arrow">↗</span>
+</a>
+<a data-jump="Recreation" href="#explore">
+<span class="service-icon green">♧</span>
+<b>Parks &amp;<br/>Recreation</b>
+<span class="arrow">↗</span>
+</a>
+<a data-jump="Community" href="#explore">
+<span class="service-icon pink">♡</span>
+<b>Community<br/>Wellbeing</b>
+<span class="arrow">↗</span>
+</a>
+<a data-jump="Finance" href="#explore">
+<span class="service-icon purple">▥</span>
+<b>Council<br/>Finances</b>
+<span class="arrow">↗</span>
+</a>
+</section>
+<section class="dashboard" id="explore">
+<div class="section-eyebrow">DISCOVER THE DATA</div>
+<h2>10 Visualisations</h2>
+<p class="section-subtitle">Follow the story from the geography of local services to usage, costs and residents’ experiences. Each visualisation includes a guide to interpreting the data.</p>
+<div aria-label="Filter charts" class="filters" role="group">
+<button class="filter active" data-filter="All">All charts <span>10</span>
+</button>
+<button class="filter" data-filter="Access">Access &amp; maps</button>
+<button class="filter" data-filter="Libraries">Libraries</button>
+<button class="filter" data-filter="Waste">Waste</button>
+<button class="filter" data-filter="Recreation">Recreation</button>
+<button class="filter" data-filter="Community">Community</button>
+<button class="filter" data-filter="Finance">Finance</button>
+</div>
+<div class="charts-grid">
+<article class="viz-card" data-topic="Access" id="visualisation-1">
+<div class="card-title">
+<span class="chart-number">1</span>
+<div>
+<h3>Recreation facilities across Victoria</h3>
+<span class="chart-type">Map</span>
+</div>
+</div>
+<div class="story-body">
+<div class="chart" id="chart1">
+<p class="loading">Loading visualisation…</p>
+</div>
+<aside aria-label="Explanation of visualisation 1" class="story-insight">
+<h4>Mapping the service landscape</h4>
+<p>This map shades Victorian local government areas by the number of recreation facilities recorded in the source dataset. Compare neighbouring councils to see how the distribution varies. Counts describe mapped records, not facility quality or access per resident.</p>
+</aside>
+</div>
+</article>
+<article class="viz-card" data-topic="Access" id="visualisation-2">
+<div class="card-title">
+<span class="chart-number">2</span>
+<div>
+<h3>Recreation facility locations across Victoria</h3>
+<span class="chart-type">Map</span>
+</div>
+</div>
+<div class="story-body">
+<div class="chart" id="chart2">
+<p class="loading">Loading visualisation…</p>
+</div>
+<aside aria-label="Explanation of visualisation 2" class="story-insight">
+<h4>Where facilities are located</h4>
+<p>Each dot represents a recorded recreation facility. Look for clusters around metropolitan areas and more dispersed locations across regional Victoria. Overlapping points can make busy areas appear denser.</p>
+</aside>
+</div>
+</article>
+<article class="viz-card" data-topic="Recreation" id="visualisation-3">
+<div class="card-title">
+<span class="chart-number">3</span>
+<div>
+<h3>Recreation facility hotspots across Victoria</h3>
+<span class="chart-type">Hexbin map</span>
+</div>
+</div>
+<div class="story-body">
+<div class="chart" id="chart3">
+<p class="loading">Loading visualisation…</p>
+</div>
+<aside aria-label="Explanation of visualisation 3" class="story-insight">
+<h4>Finding concentrations</h4>
+<p>Hexagonal cells group nearby facility locations. Stronger shading indicates more recorded facilities within a cell, helping reveal geographic concentrations without plotting every point separately.</p>
+</aside>
+</div>
+</article>
+<article class="viz-card" data-topic="Libraries" id="visualisation-4">
+<div class="card-title">
+<span class="chart-number">4</span>
+<div>
+<h3>Library visits per resident</h3>
+<span class="chart-type">Heatmap</span>
+</div>
+</div>
+<div class="story-body">
+<div class="chart" id="chart4">
+<p class="loading">Loading visualisation…</p>
+</div>
+<aside aria-label="Explanation of visualisation 4" class="story-insight">
+<h4>Comparing library engagement</h4>
+<p>The heatmap compares library visits per resident across selected councils and financial years. Differences may reflect local population, service availability and use; the chart alone cannot explain the causes.</p>
+</aside>
+</div>
+</article>
+<article class="viz-card" data-topic="Waste" id="visualisation-5">
+<div class="card-title">
+<span class="chart-number">5</span>
+<div>
+<h3>Waste collection over time</h3>
+<span class="chart-type">Area chart</span>
+</div>
+</div>
+<div class="story-body">
+<div class="chart" id="chart5">
+<p class="loading">Loading visualisation…</p>
+</div>
+<aside aria-label="Explanation of visualisation 5" class="story-insight">
+<h4>How waste collection changes</h4>
+<p>The area chart follows reported garbage collection over time. Read the horizontal axis to compare financial years, and look for sustained increases or decreases rather than isolated fluctuations.</p>
+</aside>
+</div>
+</article>
+<article class="viz-card" data-topic="Recreation" id="visualisation-6">
+<div class="card-title">
+<span class="chart-number">6</span>
+<div>
+<h3>Council service profile</h3>
+<span class="chart-type">Spider / radar chart</span>
+</div>
+</div>
+<div class="story-body">
+<div class="chart" id="chart6">
+<p class="loading">Loading visualisation…</p>
+</div>
+<aside aria-label="Explanation of visualisation 6" class="story-insight">
+<h4>A multi-service snapshot</h4>
+<p>The spider chart brings four council indicators into one view: libraries, waste, aquatic recreation and consultation satisfaction. Values are scaled separately for visual comparison, so the shape is not an overall performance score.</p>
+</aside>
+</div>
+</article>
+<article class="viz-card" data-topic="Libraries" id="visualisation-7">
+<div class="card-title">
+<span class="chart-number">7</span>
+<div>
+<h3>Library service costs over time</h3>
+<span class="chart-type">Connected dot plot</span>
+</div>
+</div>
+<div class="story-body">
+<div class="chart" id="chart7">
+<p class="loading">Loading visualisation…</p>
+</div>
+<aside aria-label="Explanation of visualisation 7" class="story-insight">
+<h4>Tracking library service costs</h4>
+<p>The connected dot plot links yearly direct library service cost observations for selected councils. Compare the direction and size of changes, keeping in mind that cost differences alone do not measure service efficiency.</p>
+</aside>
+</div>
+</article>
+<article class="viz-card" data-topic="Libraries" id="visualisation-8">
+<div class="card-title">
+<span class="chart-number">8</span>
+<div>
+<h3>Library membership and visits</h3>
+<span class="chart-type">Scatter plot</span>
+</div>
+</div>
+<div class="story-body">
+<div class="chart" id="chart8">
+<p class="loading">Loading visualisation…</p>
+</div>
+<aside aria-label="Explanation of visualisation 8" class="story-insight">
+<h4>Do members also visit more?</h4>
+<p>Each point represents a council with reported library membership and visit measures. The fitted trend line summarises the overall association; it does not establish that membership causes more visits.</p>
+</aside>
+</div>
+</article>
+<article class="viz-card" data-topic="Finance" id="visualisation-9">
+<div class="card-title">
+<span class="chart-number">9</span>
+<div>
+<h3>Council financial position</h3>
+<span class="chart-type">Stacked bar</span>
+</div>
+</div>
+<div class="story-body">
+<div class="chart" id="chart9">
+<p class="loading">Loading visualisation…</p>
+</div>
+<aside aria-label="Explanation of visualisation 9" class="story-insight">
+<h4>Understanding the financial context</h4>
+<p>The stacked bars show reported council financial-position categories. These figures provide context about councils’ finances, but they are not a breakdown of spending on libraries, waste or recreation.</p>
+</aside>
+</div>
+</article>
+<article class="viz-card" data-topic="Community" id="visualisation-10">
+<div class="card-title">
+<span class="chart-number">10</span>
+<div>
+<h3>Community consultation satisfaction</h3>
+<span class="chart-type">Calendar-style heatmap</span>
+</div>
+</div>
+<div class="story-body">
+<div class="chart" id="chart10">
+<p class="loading">Loading visualisation…</p>
+</div>
+<aside aria-label="Explanation of visualisation 10" class="story-insight">
+<h4>How residents’ views evolve</h4>
+<p>Each coloured tile represents a council’s consultation and engagement satisfaction score in one financial year. Compare colours across a row to spot change over time and down a column to compare councils. These scores measure perceptions, not direct rankings of residents’ service priorities.</p>
+</aside>
+</div>
+</article>
+</div>
+<div class="no-results" hidden="">No matching visualisations. Try another search or select All charts.</div>
+</section>
+<section class="about" id="about">
+<div class="section-eyebrow">DATA &amp; METHODOLOGY</div>
+<h2>About this project</h2>
+<p>This Victorian case study uses the Local Government Performance Reporting Framework, Victorian waste statistics, recreation facility records, and local parks datasets. Comparisons are limited to councils and years with reported observations. Some charts use selected councils or a single council's parks records, as labelled.</p>
+<p>
+<strong>Interpretation:</strong> community consultation satisfaction is a perception measure, not a direct survey of changing service priorities. Financial position is not the same as spending on services. Map 1 uses LGA polygons where available; map 2 uses individual facility locations; map 3 uses H3 hexagonal bins. Map tiles require an internet connection.</p>
+<p>Interactive charts use Vega-Lite. Run this project through <strong>VS Code Live Server</strong> with an internet connection for the Vega libraries; keep the <code>data</code> folder alongside these files.</p>
+</section>
+</main>
+<footer>
+<span>Victorian Council Services</span>
+<span>Local services, clearly explained. · Educational visualisation project</span>
+<a href="#top">Back to top ↑</a>
+</footer>
+<script src="maps.js">
+</script>
+<script src="charts/common.js">
+</script>
+<script src="charts/chart4.js">
+</script>
+<script src="charts/chart5.js">
+</script>
+<script src="charts/chart6.js">
+</script>
+<script src="charts/chart7.js">
+</script>
+<script src="charts/chart8.js">
+</script>
+<script src="charts/chart9.js">
+</script>
+<script src="charts/chart10.js">
+</script>
+<script src="site.js">
+</script>
+</body>
+</html>
